@@ -14,13 +14,19 @@ class TestAddContact(unittest.TestCase):
 
     def test_add_contact(self):
         driver = self.driver
-        driver.get("http://localhost/addressbook/")
-        driver.find_element_by_name("user").clear()
-        driver.find_element_by_name("user").send_keys("admin")
-        driver.find_element_by_name("pass").click()
-        driver.find_element_by_name("pass").clear()
-        driver.find_element_by_name("pass").send_keys("secret")
-        driver.find_element_by_xpath("//input[@value='Login']").click()
+        self.open_home_page(driver)
+        self.login(driver)
+        self.сreate_new_contact(driver)
+        self.rertur_to_homepage(driver)
+        self.logout(driver)
+
+    def logout(self, driver):
+        driver.find_element_by_link_text("Logout").click()
+
+    def rertur_to_homepage(self, driver):
+        driver.find_element_by_link_text("home page").click()
+
+    def сreate_new_contact(self, driver):
         driver.find_element_by_link_text("add new").click()
         driver.find_element_by_name("firstname").click()
         driver.find_element_by_name("firstname").clear()
@@ -38,7 +44,7 @@ class TestAddContact(unittest.TestCase):
         driver.find_element_by_name("title").clear()
         driver.find_element_by_name("title").send_keys("Test_Title")
         driver.find_element_by_name("company").clear()
-        driver.find_element_by_name("company").send_keys("Te")
+        driver.find_element_by_name("company").send_keys("Test")
         driver.find_element_by_name("company").send_keys(Keys.DOWN)
         driver.find_element_by_name("company").send_keys(Keys.TAB)
         driver.find_element_by_name("address").click()
@@ -86,9 +92,18 @@ class TestAddContact(unittest.TestCase):
         driver.find_element_by_name("notes").clear()
         driver.find_element_by_name("notes").send_keys("Best test")
         driver.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
-        driver.find_element_by_link_text("home page").click()
-        driver.find_element_by_link_text("Logout").click()
-    
+
+    def login(self, driver):
+        driver.find_element_by_name("user").clear()
+        driver.find_element_by_name("user").send_keys("admin")
+        driver.find_element_by_name("pass").click()
+        driver.find_element_by_name("pass").clear()
+        driver.find_element_by_name("pass").send_keys("secret")
+        driver.find_element_by_xpath("//input[@value='Login']").click()
+
+    def open_home_page(self, driver):
+        driver.get("http://localhost/addressbook/")
+
     def is_element_present(self, how, what):
         try: self.driver.find_element(by=how, value=what)
         except NoSuchElementException as e: return False

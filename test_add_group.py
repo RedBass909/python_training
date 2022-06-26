@@ -20,7 +20,6 @@ class TestAddGroup(unittest.TestCase):
         self.logout()
 
     def test_add_empty_group(self):
-        wd = self.wd
         self.login(username="admin", password="secret")
         self.create_group(Group(name="", header="", footer=""))
         self.logout()
@@ -57,15 +56,16 @@ class TestAddGroup(unittest.TestCase):
 
     def login(self, username, password):
         wd = self.wd
-        self.open_home_page(wd)
+        self.open_home_page()
         wd.find_element_by_name("user").clear()
         wd.find_element_by_name("user").send_keys("%s" % username)
         wd.find_element_by_name("pass").clear()
         wd.find_element_by_name("pass").send_keys("%s" % password)
         wd.find_element_by_xpath("//input[@value='Login']").click()
 
-    def open_home_page(self, wd):
-       wd.get("http://localhost/addressbook/")
+    def open_home_page(self):
+        wd = self.wd
+        wd.get("http://localhost/addressbook/")
 
     def is_element_present(self, how, what):
         try: self.wd.find_element(by=how, value=what)

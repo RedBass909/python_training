@@ -48,6 +48,7 @@ class TestAddGroup(unittest.TestCase):
         wd.find_element_by_name("group_header").click()
         wd.find_element_by_name("group_header").clear()
         wd.find_element_by_name("group_header").send_keys("%s" % group.header)
+        wd.find_element_by_name("group_header").send_keys("%s" % group.name)
         wd.find_element_by_name("group_footer").click()
         wd.find_element_by_name("group_footer").clear()
         wd.find_element_by_name("group_footer").send_keys("%s" % group.footer)

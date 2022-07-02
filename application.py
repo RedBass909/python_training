@@ -13,7 +13,7 @@ class Application:
         wd = self.wd
         wd.find_element_by_link_text("Logout").click()
 
-    def rertur_to_group_page(self):
+    def rerturn_to_group_page(self):
         wd = self.wd
         wd.find_element_by_link_text("group page").click()
 
@@ -34,7 +34,7 @@ class Application:
         wd.find_element_by_name("group_footer").send_keys("%s" % group.footer)
         # submit form creation
         wd.find_element_by_name("submit").click()
-        self.rertur_to_group_page()
+        self.rerturn_to_group_page()
 
     def open_groups_page(self):
         wd = self.wd

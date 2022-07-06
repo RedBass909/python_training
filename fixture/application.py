@@ -1,6 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
+from fixture.session import SessionHelper
 
 
 class Application:
@@ -8,6 +9,7 @@ class Application:
     def __init__(self):
         self.wd = webdriver.Firefox()
         self.wd.implicitly_wait(30)
+        self.session = SessionHelper(self)
 
     def logout(self):
         wd = self.wd
@@ -41,24 +43,11 @@ class Application:
         wd.find_element_by_id("content").click()
         wd.find_element_by_link_text("groups").click()
 
-    def login(self, username, password):
-        wd = self.wd
-        self.open_home_page()
-        wd.find_element_by_name("user").clear()
-        wd.find_element_by_name("user").send_keys("%s" % username)
-        wd.find_element_by_name("pass").clear()
-        wd.find_element_by_name("pass").send_keys("%s" % password)
-        wd.find_element_by_xpath("//input[@value='Login']").click()
-
     def open_home_page(self):
         wd = self.wd
         wd.get("http://localhost/addressbook/")
 
-    def logout(self):
-        wd = self.wd
-        wd.find_element_by_link_text("Logout").click()
-
-    def rertur_to_homepage(self):
+    def rerturn_to_homepage(self):
         wd = self.wd
         wd.find_element_by_link_text("home page").click()
 
@@ -130,19 +119,6 @@ class Application:
         wd.find_element_by_name("notes").clear()
         wd.find_element_by_name("notes").send_keys("%s" % contact.notes)
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
-
-        # def login(self, username="admin", password="secret"):
-        #     wd = self.wd
-        #     wd.find_element_by_name("user").clear()
-        #     wd.find_element_by_name("user").send_keys("%s" % username)
-        #     wd.find_element_by_name("pass").click()
-        #     wd.find_element_by_name("pass").clear()
-        #     wd.find_element_by_name("pass").send_keys("%s" % password)
-        #     wd.find_element_by_xpath("//input[@value='Login']").click()
-
-        # def open_home_page(self):
-        #     wd = self.wd
-        #     wd.get("http://localhost/addressbook/")
 
     def destroy(self):
         self.wd.quit()
